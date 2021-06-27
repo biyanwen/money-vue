@@ -1,0 +1,30 @@
+<template>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    hhh
+<!--    <vc-calendar />-->
+    <Byw></Byw>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+import VCalendar from 'v-calendar';
+import Vue from "vue";
+import Byw from "@/components/Byw";
+/*
+Vue.use(VCalendar, {
+  componentPrefix: 'vc'  // Use <vc-calendar /> instead of <v-calendar />
+});
+*/
+
+export default {
+  name: 'Home',
+  components: {
+    HelloWorld,
+    Byw
+  }
+}
+</script>
