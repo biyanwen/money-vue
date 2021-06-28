@@ -1,6 +1,6 @@
 <template>
   <footer class="homeFooter">
-    <div v-if="show">
+    <div>
       <div class="addButton">
         <div class="addIcon">+</div>
       </div>
@@ -10,7 +10,6 @@
 
 <script>
 export default {
-  props: ['show'],
   name: "homefooter"
 }
 </script>

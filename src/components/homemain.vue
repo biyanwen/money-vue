@@ -38,21 +38,11 @@ export default {
 
 .description {
   font-size: 40px;
-/*
-  position: absolute;
-  top: 762px;
-  left: 229px;
-*/
   z-index: -1;
 }
 
 .description2 {
   font-size: 30px;
-/*
-  position: absolute;
-  top: 829px;
-  left: 150px;
-*/
   z-index: -1;
 }
 .description-wrapper{

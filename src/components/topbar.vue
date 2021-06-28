@@ -1,9 +1,9 @@
 <template>
-  <header class="topBar">
-    <div>
-      <div v-if="show" class="calendar-wrapper">
+  <header>
+    <div v-bind:class="{topBar:show}">
+      <div class="calendar-wrapper">
         <div>
-          <Calendar class="calendar" v-on:selected:date="date = $event"/>
+          <Calendar v-bind:show="show" v-on:selected:date="date = $event"/>
         </div>
         <div class="triangle">
           <Icons class="icon" iconName="triangle"></Icons>

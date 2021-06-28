@@ -2,7 +2,7 @@
   <div class="home">
     <TopBar v-bind:show="haveData"/>
     <HomeMain v-bind:show="haveData"/>
-    <HomeFooter v-bind:show="haveData"/>
+    <HomeFooter />
   </div>
 </template>
 
