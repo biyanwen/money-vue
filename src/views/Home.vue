@@ -30,21 +30,20 @@
 
 <script>
 
-import Vue from "vue";
 import Calendar from "@/components/calendar";
 import Icons from "@/components/Icons";
 
-Vue.component("Calendar", Calendar);
-Vue.component("Icons", Icons);
-
 export default {
+  components: {
+    Calendar,
+    Icons
+  },
   name: 'Home',
   data: function () {
     return {
       total: undefined
     }
   },
-  components: {}
 }
 </script>
 
