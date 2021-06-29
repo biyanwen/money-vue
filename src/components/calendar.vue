@@ -6,8 +6,7 @@
           <button
               v-for="date in dates"
               :key="date.date.getTime()"
-              v-bind:class="{color:show}"
-              class="font flex items-center bg-indigo-100 hover:bg-indigo-200 text-sm text-indigo-600 font-semibold h-8 px-2 m-1 rounded-lg border-2 border-transparent focus:border-indigo-600 focus:outline-none"
+              class="color font flex items-center bg-indigo-100 hover:bg-indigo-200 text-sm text-indigo-600 font-semibold h-8 px-2 m-1 rounded-lg border-2 border-transparent focus:border-indigo-600 focus:outline-none"
               @click.stop="dateSelected($event, date, togglePopover)"
               ref="button">
             {{ date.date.getFullYear() }}.{{ date.date.getMonth() + 1 }}
@@ -26,7 +25,6 @@ Vue.use(VCalendar, {
   componentPrefix: 'v',  // Use <vc-calendar /> instead of <v-calendar />
 });
 export default {
-  props: ['show'],
   data: function () {
     return {
       name: "calendar",
@@ -79,6 +77,7 @@ export default {
 }
 
 .color {
-  background-color: #519af8;
+  background-color: transparent;
+  border-style: none;
 }
 </style>

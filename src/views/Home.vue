@@ -1,13 +1,13 @@
 <template>
   <div class="home">
-    <TopBar v-bind:show="haveData"/>
-    <HomeMain v-bind:show="haveData"/>
-    <HomeFooter />
+    <TopBar v-bind:hasData="haveData"/>
+    <HomeMain v-bind:hasData="haveData"/>
+    <HomeFooter/>
   </div>
 </template>
 
 <script>
-import TopBar from "@/components/topbar";
+import TopBar from "@/components/hometopbar";
 import HomeMain from "@/components/homemain";
 import HomeFooter from "@/components/homefooter";
 
@@ -21,7 +21,7 @@ export default {
   data: function () {
     return {
       date: undefined,
-      records: [{"hhh": 777}]
+      records: [{hhh:999}]
     }
   },
   computed: {

@@ -18,7 +18,7 @@ export default {
 .homeFooter {
   position: absolute;
   min-width: 100vw;
-  top: 85vh;
+  top: 88vh;
   display: flex;
   justify-content: center;
   align-content: center;

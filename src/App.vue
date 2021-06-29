@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-      <!--      <router-link to="/">Home</router-link> |-->
-      <!--      <router-link to="/about">About</router-link>-->
+    <!--      <router-link to="/">Home</router-link> |-->
+    <!--      <router-link to="/about">About</router-link>-->
     <router-view/>
   </div>
 </template>
@@ -15,11 +15,13 @@
 
 body {
   background-color: #f1f1f1;
-  overflow: hidden;
+  overflow-x: hidden;
 }
-.vc-popover-content-wrapper[data-v-05016e86]{
+
+.vc-popover-content-wrapper[data-v-05016e86] {
   transform: translate3d(-44px, 63.6667px, 0px) !important;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

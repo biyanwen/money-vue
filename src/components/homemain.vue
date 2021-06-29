@@ -1,6 +1,6 @@
 <template>
-  <main class="homeMain">
-    <div v-if="show">
+  <main>
+    <div v-show="!hasData" class="noDataHomeMain">
       <img class="noFaceMan" src="../assets/img/noFaceMan.jpg" alt="图片">
       <div class="description-wrapper">
       <span class="description"><strong>本月还没有账单哦</strong>
@@ -17,14 +17,14 @@
 
 <script>
 export default {
-  props: ['show'],
+  props: ['hasData'],
   name: "homemain"
 }
 </script>
 
 <style lang="scss" scoped>
 
-.homeMain {
+.noDataHomeMain {
   position: relative;
 }
 
@@ -37,6 +37,7 @@ export default {
 }
 
 .description {
+  width: 100%;
   font-size: 40px;
   z-index: -1;
 }
@@ -45,7 +46,8 @@ export default {
   font-size: 30px;
   z-index: -1;
 }
-.description-wrapper{
+
+.description-wrapper {
   min-height: 15vh;
   position: absolute;
   top: 43vh;
