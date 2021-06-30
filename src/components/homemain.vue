@@ -12,18 +12,23 @@
       </span>
       </div>
     </div>
+    <div v-show="hasData" class="hasDataHomeMain">
+      <MoneyDataList :money-data-array="moneyDataArray"/>
+    </div>
   </main>
 </template>
 
 <script>
+import MoneyDataList from "@/components/moneydatalist";
+
 export default {
-  props: ['hasData'],
-  name: "homemain"
+  components: {MoneyDataList},
+  props: ['hasData', 'moneyDataArray'],
+  name: "homemain",
 }
 </script>
 
 <style lang="scss" scoped>
-
 .noDataHomeMain {
   position: relative;
 }

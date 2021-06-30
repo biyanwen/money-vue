@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <TopBar v-bind:hasData="haveData"/>
-    <HomeMain v-bind:hasData="haveData"/>
+    <HomeMain :money-data-array="records" v-bind:hasData="haveData"/>
     <HomeFooter/>
   </div>
 </template>
@@ -10,7 +10,14 @@
 import TopBar from "@/components/hometopbar";
 import HomeMain from "@/components/homemain";
 import HomeFooter from "@/components/homefooter";
+import MoneyData from "@/bean/MoneyData";
+import MoneyDetail from "@/bean/MoneyDetail";
 
+let incomesArray = new MoneyDetail("工资", 10)
+let expensesArray = new MoneyDetail("三餐", -10)
+let moneyData = new MoneyData("1", new Date(), Array.of(incomesArray), Array.of(expensesArray))
+
+let moneyData2 = new MoneyData("2", new Date(), Array.of(incomesArray), Array.of(expensesArray))
 export default {
   components: {
     TopBar: TopBar,
@@ -21,7 +28,7 @@ export default {
   data: function () {
     return {
       date: undefined,
-      records: [{hhh:999}]
+      records: [moneyData, moneyData2]
     }
   },
   computed: {
