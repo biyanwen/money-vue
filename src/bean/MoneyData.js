@@ -32,7 +32,29 @@ class MoneyData {
     set expenses(value) {
         this._expensesArray = value;
     }
+
+    get des() {
+        let str = ''
+        if (this.incomes !== undefined) {
+            let result = moneyAdd(this.incomes)
+            str = str + "收:" + result
+        }
+
+        if (this.expenses !== undefined) {
+            let result = moneyAdd(this.expenses)
+            str = str + " 支:" + result
+        }
+
+        return str
+    }
 }
 
+let moneyAdd = function (array) {
+    return array.map(expense => {
+        return expense.value
+    }).reduce((num1, num2) => {
+        return num1 + num2
+    })
+}
 
 export default MoneyData
