@@ -1,7 +1,9 @@
 class MoneyDetail {
-    constructor(name, value) {
+    constructor(name, value, text) {
         this._name = name;
         this._value = value;
+        //备注
+        this._text = text;
     }
 
     get name() {
@@ -18,6 +20,14 @@ class MoneyDetail {
 
     set value(value) {
         this._value = value;
+    }
+
+    get text() {
+        return this._text;
+    }
+
+    set text(value) {
+        this._text = value;
     }
 }
 

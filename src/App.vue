@@ -12,6 +12,17 @@
   padding: 0;
   box-sizing: border-box
 }
+a {
+  text-decoration: none;
+}
+input{
+  background:none;
+  outline:none;
+  border:0;
+}
+.router-link-active {
+  text-decoration: none;
+}
 
 body {
   background-color: #f1f1f1;

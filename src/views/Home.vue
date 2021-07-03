@@ -15,7 +15,8 @@ import MoneyDetail from "@/bean/MoneyDetail";
 
 let incomesArray = new MoneyDetail("工资", 10)
 let expensesArray = new MoneyDetail("三餐", -10)
-let moneyData = new MoneyData("1", new Date(), Array.of(incomesArray), Array.of(expensesArray))
+let expensesArray2 = new MoneyDetail("洗脚", -10)
+let moneyData = new MoneyData("1", new Date(), Array.of(incomesArray), Array.of(expensesArray, expensesArray2))
 
 let moneyData2 = new MoneyData("2", new Date(), Array.of(incomesArray), Array.of(expensesArray))
 export default {

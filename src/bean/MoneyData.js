@@ -42,7 +42,7 @@ class MoneyData {
 
         if (this.expenses !== undefined) {
             let result = moneyAdd(this.expenses)
-            str = str + " 支:" + result
+            str = str + " 支:" + result * -1
         }
 
         return str
