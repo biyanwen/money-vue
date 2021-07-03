@@ -1,6 +1,11 @@
 <template>
   <div class="record">
     <div class="tab">
+      <div class="indexRout">
+        <router-link to="/">
+          <Icons class="indexIcons" icon-name="index"/>
+        </router-link>
+      </div>
       <router-link @click.native='selectTab(true)' to="Expense"
                    class="expense"
                    v-bind:class="{select:selected}">支出
@@ -13,7 +18,7 @@
     </div>
     <div class="input">
       <input class="remark" placeholder="点此输入备注..."/>
-      <input class="value" placeholder="0.0"/>
+      <div class="value" >0.0</div>
     </div>
     <div class="compute">
       <div>1</div>
@@ -37,7 +42,10 @@
 </template>
 
 <script>
+import Icons from "@/components/Icons";
+
 export default {
+  components: {Icons},
   data: function () {
     return {
       selected: true,
@@ -46,13 +54,23 @@ export default {
   methods: {
     selectTab(bool) {
       this.selected = bool
-    }
+    },
   }
 }
 
 </script>
 
 <style scoped lang="scss">
+.indexRout {
+  width: 45px;
+  position: absolute;
+  left: 7vw;
+}
+
+.indexIcons {
+  width: 100%;
+}
+
 .select {
   color: white !important;
 }
@@ -89,11 +107,11 @@ export default {
 .value {
   height: 10vh;
   width: 50%;
-  font-size: 30px;
+  font-size: 40px;
   margin-right: 20px;
-  text-align: right;
-}
-
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;}
 .remark {
   height: 10vh;
   width: 50%;
@@ -106,13 +124,11 @@ export default {
 }
 
 .moneyType {
-  border: 1px solid red;
   height: 40vh;
   overflow-y: scroll;
 }
 
 .compute {
-  border: 1px solid red;
   height: 40vh;
   width: 98vw;
   position: absolute;

@@ -2,7 +2,7 @@
   <footer class="homeFooter">
     <div>
       <div class="addButton">
-        <router-link to="/record" class="addIcon">+</router-link>
+        <router-link to="/Expense" class="addIcon">+</router-link>
       </div>
     </div>
   </footer>
