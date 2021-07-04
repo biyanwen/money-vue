@@ -18,12 +18,12 @@
     </div>
     <div class="input">
       <input class="remark" placeholder="点此输入备注..."/>
-      <div class="value" >0.0</div>
+      <div class="value">0.0</div>
     </div>
-    <div class="compute">
+    <div @click="keySelect" class="compute">
       <div>1</div>
       <div>2</div>
-      <div>3</div>
+      <div class="hhh">3</div>
       <div>删除</div>
       <div>4</div>
       <div>5</div>
@@ -55,9 +55,25 @@ export default {
     selectTab(bool) {
       this.selected = bool
     },
-  }
+    keySelect(even) {
+      let innerText = even.target.innerText
+      setSelectClass(innerText,even.target.parentElement.childNodes)
+    }
+  },
 }
 
+let setSelectClass = function (innerText, nodeList) {
+  nodeList.forEach(node => {
+    if (node.innerText === innerText) {
+      node.classList.add('keySelect')
+    } else {
+      if (node.classList.contains('keySelect')) {
+        node.classList.remove('keySelect')
+      }
+    }
+  })
+
+}
 </script>
 
 <style scoped lang="scss">
@@ -73,6 +89,10 @@ export default {
 
 .select {
   color: white !important;
+}
+
+.keySelect {
+  background-color: rgba(241, 241, 241, 0.6);
 }
 
 .tab {
@@ -111,7 +131,9 @@ export default {
   margin-right: 20px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;}
+  justify-content: flex-end;
+}
+
 .remark {
   height: 10vh;
   width: 50%;
