@@ -1,12 +1,16 @@
+import {MoneyTypeEnum} from "@/bean/MoneyTypeEnum";
+
 class MoneyData {
-    constructor(id, date, incomesArray, expensesArray) {
+    constructor(id, date, moneyDataArray) {
         this.id = id
         //日期
         this._date = date;
-        //收入 数组类型
-        this._incomesArray = incomesArray;
-        //支出 数组类型
-        this._expensesArray = expensesArray;
+        //根据 type 区分收入和支出
+        this.moneyDataArray = this.moneyDataArray || [].concat(moneyDataArray)
+    }
+
+    set addMoneyData(value) {
+        return this.moneyDataArray.concat(value)
     }
 
     get date() {
@@ -18,19 +22,24 @@ class MoneyData {
     }
 
     get incomes() {
-        return this._incomesArray;
+        let result = this.moneyDataArray.filter(item => {
+            return item.type === MoneyTypeEnum.INCOME
+        });
+        return result
     }
 
     set incomes(value) {
-        this._incomesArray = value;
+        this.moneyDataArray.concat(value)
     }
 
     get expenses() {
-        return this._expensesArray;
+        return this.moneyDataArray.filter(item => {
+            return item.type === MoneyTypeEnum.EXPENSE
+        });
     }
 
     set expenses(value) {
-        this._expensesArray = value;
+        this.moneyDataArray.concat(value)
     }
 
     get des() {

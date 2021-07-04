@@ -8,9 +8,23 @@ const MONEY = 'money-vue'
 export default new Vuex.Store({
     state: {
         expenseType: [],
-        incomesType: []
+        incomesType: [],
+        selectType: {name: undefined, type: undefined},
+        selectDate: undefined
     },
-    mutations: {},
+    mutations: {
+        selectType(state, param) {
+            state.selectType = {name: param.name, type: param.type}
+        },
+        selectDate(state, date) {
+            if (date.date) {
+                state.selectDate = date.date
+            } else {
+                state.selectDate = date
+            }
+            console.log(state.selectDate);
+        }
+    },
     actions: {},
     modules: {},
     getters: {

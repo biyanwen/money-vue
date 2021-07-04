@@ -2,7 +2,7 @@
   <div>
     <div class="incomesClass">
       <div class="incomesType" v-for=" item in incomesTypes" :key="item.id">
-        <div class="img" :class="{selectColor: item.id===isActive}" @click="switchExpenseType(item.id)">
+        <div class="img" :class="{selectColor: item.id===isActive.id}" @click="switchExpenseType(item)">
           <img :src='item.img' :alt='item.name'/>
         </div>
         <span>{{ item.name }}</span>
@@ -12,19 +12,36 @@
 </template>
 
 <script>
+import {MoneyTypeEnum} from "@/bean/MoneyTypeEnum";
+
 export default {
   name: "Incomes",
   data: function () {
     return {
       incomesTypes: this.$store.getters.getIncomesType,
-      isActive: undefined
+      isActive: {id: this.$store.getters.getIncomesType[0].id, name: this.$store.getters.getIncomesType[0].name}
     }
   },
   methods: {
-    switchExpenseType(index) {
-      this.isActive = index
+    switchExpenseType(item) {
+      this.isActive = {id: item.id, name: item.name}
     }
-  }
+  },
+  isActive: {
+    handler: function (newValue, oldValue) {
+      let name
+      if (newValue === undefined) {
+        name = oldValue.name
+      } else {
+        name = newValue.name
+      }
+      this.$store.commit('selectType', {
+        name: name,
+        type: MoneyTypeEnum.INCOME
+      })
+    },
+    immediate: true
+  },
 }
 </script>
 
