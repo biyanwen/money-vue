@@ -6,11 +6,15 @@ class MoneyData {
         //日期
         this._date = date;
         //根据 type 区分收入和支出
-        this.moneyDataArray = this.moneyDataArray || [].concat(moneyDataArray)
+        this._moneyDataArray = this._moneyDataArray || [].concat(moneyDataArray)
     }
 
-    set addMoneyData(value) {
-        return this.moneyDataArray.concat(value)
+    get moneyDataArray() {
+        return this._moneyDataArray;
+    }
+
+    addMoneyData(value) {
+        this._moneyDataArray = this.moneyDataArray.concat(value)
     }
 
     get date() {
@@ -29,7 +33,7 @@ class MoneyData {
     }
 
     set incomes(value) {
-        this.moneyDataArray.concat(value)
+        this._moneyDataArray = this.moneyDataArray.concat(value)
     }
 
     get expenses() {
@@ -39,17 +43,17 @@ class MoneyData {
     }
 
     set expenses(value) {
-        this.moneyDataArray.concat(value)
+        this._moneyDataArray = this.moneyDataArray.concat(value)
     }
 
     get des() {
         let str = ''
-        if (this.incomes !== undefined) {
+        if (this.incomes !== undefined && this.incomes.length > 0) {
             let result = moneyAdd(this.incomes)
             str = str + "收:" + result
         }
 
-        if (this.expenses !== undefined) {
+        if (this.expenses !== undefined && this.expenses.length > 0) {
             let result = moneyAdd(this.expenses)
             str = str + " 支:" + result * -1
         }
@@ -62,7 +66,7 @@ let moneyAdd = function (array) {
     return array.map(expense => {
         return expense.value
     }).reduce((num1, num2) => {
-        return num1 + num2
+        return Number(num1) + Number(num2)
     })
 }
 

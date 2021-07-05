@@ -27,21 +27,23 @@ export default {
       this.isActive = {id: item.id, name: item.name}
     }
   },
-  isActive: {
-    handler: function (newValue, oldValue) {
-      let name
-      if (newValue === undefined) {
-        name = oldValue.name
-      } else {
-        name = newValue.name
-      }
-      this.$store.commit('selectType', {
-        name: name,
-        type: MoneyTypeEnum.INCOME
-      })
+  watch: {
+    isActive: {
+      handler: function (newValue, oldValue) {
+        let name
+        if (newValue === undefined) {
+          name = oldValue.name
+        } else {
+          name = newValue.name
+        }
+        this.$store.commit('selectType', {
+          name: name,
+          type: MoneyTypeEnum.INCOME
+        })
+      },
+      immediate: true
     },
-    immediate: true
-  },
+  }
 }
 </script>
 

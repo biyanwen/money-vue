@@ -43,6 +43,9 @@
 
 <script>
 import Icons from "@/components/Icons";
+import MoneyData from "@/bean/MoneyData";
+import UuidUtils from "@/utils/UuidUtils";
+import MoneyDetail from "@/bean/MoneyDetail";
 
 export default {
   components: {Icons},
@@ -55,22 +58,42 @@ export default {
   },
   methods: {
     recode() {
+      let computeResult = lastCompute(this.moneyNum)
+      this.moneyNum = computeResult
+
       let typeName = this.$store.state.selectType.name
+      let type = this.$store.state.selectType.type
       let selectDate = this.$store.state.selectDate
 
+      let moneyDetail = new MoneyDetail(typeName, this.moneyNum, type, this.remark)
+
+      let moneyData = new MoneyData(UuidUtils.get_uuid(), selectDate, [moneyDetail])
+      this.$store.commit('saveMoneyData', moneyData)
+
+      function lastCompute(moneyNum) {
+        let lastStr = moneyNum.substr(moneyNum.length - 1, 1)
+
+        if (lastStr === '-' || lastStr === '+' || lastStr === '.') {
+          moneyNum = moneyNum.substr(0, moneyNum.length - 1)
+        }
+        return moneyNum
+      }
 
     },
     selectTab(bool) {
       this.selected = bool
-    },
+    }
+    ,
     keySelect(even) {
       let innerText = even.target.innerText
       setSelectClass(innerText, even.target.parentElement.childNodes)
-    },
+    }
+    ,
     inputTest(even) {
       let remark = even.target.value;
       this.remark = remark
-    },
+    }
+    ,
     inputNum(even) {
       let valueDom = document.getElementsByClassName('value').item(0);
       let innerText = even.target.innerText
@@ -95,8 +118,7 @@ let getNum = function (valueDom, innerText) {
     if (newText === '') {
       newText = '0.0'
     }
-    valueDom.innerHTML = newText
-    return
+    return newText
   }
   if (initText.length > 11) {
     window.alert('数字太大啦~')
@@ -113,6 +135,8 @@ let getNum = function (valueDom, innerText) {
   if (isCanShow(innerText)) {
     return setNumIfZero(initText, innerText)
   }
+
+  return '0.0'
 }
 
 function setNumIfZero(initTest, innerText) {
@@ -128,7 +152,6 @@ function setNumIfZero(initTest, innerText) {
 function computeNum(initTest, innerText) {
   if (innerText === '-' || innerText === '+') {
     if (initTest.indexOf('-') !== -1 || initTest.indexOf('+') !== -1) {
-      console.log(innerText);
       try {
         initTest = eval(initTest)
       } catch (e) {

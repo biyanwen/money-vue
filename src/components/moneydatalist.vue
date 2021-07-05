@@ -5,6 +5,8 @@ export default {
   props: ['moneyDataArray'],
   render: function (createElement) {
     let moneyDataArrayCopy = this.moneyDataArray
+    console.log('moneyDataArrayCopy');
+    console.log(moneyDataArrayCopy);
 
     function createFirstChildElement(createElement) {
       let childList = []
