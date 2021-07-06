@@ -43,9 +43,9 @@ export default {
   props: ['hasData'],
   data: function () {
     return {
-      "monthlyExpenditure": 0,
-      "monthlyIncome": 0,
-      "monthlyBalance": 0,
+      monthlyExpenditure: 0,
+      monthlyIncome: 0,
+      monthlyBalance: 0,
       selectDate: new Date()
     }
   },
@@ -54,10 +54,23 @@ export default {
       handler: function (newValue, oldValue) {
         this.$emit('update:date', this.selectDate)
         this.$store.commit('selectDate', newValue)
+        this.statisticalData(newValue)
       },
       immediate: true
+    },
+  },
+  methods: {
+    //根据时间获取当月统计数据
+    statisticalData(date) {
+      const sameDataArray = this.$store.getters.getMoneyDataForSameMonth(date)
+      if (sameDataArray.length > 0) {
+        this.monthlyIncome = sameDataArray.map(item => item.incomesValue).reduce((t1, t2) => Number(t1) + Number(t2))
+        this.monthlyExpenditure = sameDataArray.map(item => item.expenseValue).reduce((t1, t2) => Number(t1) + Number(t2))
+        this.monthlyBalance = this.monthlyIncome - this.monthlyExpenditure
+      }
     }
   }
+
 }
 </script>
 

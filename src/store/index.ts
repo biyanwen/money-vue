@@ -49,6 +49,14 @@ export default new Vuex.Store({
         getIncomesType() {
             const moneyTypeDefault = new MoneyType;
             return localStorage.getItem(MONEY + 'incomesType') || moneyTypeDefault.incomesDefault
+        },
+        getMoneyDataForSameMonth: (state) => (date: Date) => {
+            // todo 要从 localStore 中获取
+            const dataList = state.moneyDataArray
+            return dataList.filter(item => {
+                return item.date.getFullYear() === date.getFullYear()
+                    && item.date.getMonth() === date.getMonth()
+            })
         }
     }
 })

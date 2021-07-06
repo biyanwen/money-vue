@@ -46,17 +46,35 @@ class MoneyData {
         this._moneyDataArray = this.moneyDataArray.concat(value)
     }
 
+    get incomesValue() {
+        if (this.incomes !== undefined && this.incomes.length > 0) {
+            return moneyAdd(this.incomes)
+        }
+        return 0
+    }
+
+    get expenseValue() {
+        if (this.expenses !== undefined && this.expenses.length > 0) {
+            return moneyAdd(this.expenses)
+        }
+        return 0
+    }
+
     get des() {
         let str = ''
-        if (this.incomes !== undefined && this.incomes.length > 0) {
-            let result = moneyAdd(this.incomes)
-            str = str + "收:" + result
-        }
+        let income = this.incomesValue
+        str = str + "收:" + income
+        // if (this.incomes !== undefined && this.incomes.length > 0) {
+        //     let result = moneyAdd(this.incomes)
+        //     str = str + "收:" + result
+        // }
 
-        if (this.expenses !== undefined && this.expenses.length > 0) {
-            let result = moneyAdd(this.expenses)
-            str = str + " 支:" + result * -1
-        }
+        let expense = this.expenseValue
+        str = str + " 支:" + expense * -1
+        // if (this.expenses !== undefined && this.expenses.length > 0) {
+        //     let result = moneyAdd(this.expenses)
+        //     str = str + " 支:" + result * -1
+        // }
 
         return str
     }
