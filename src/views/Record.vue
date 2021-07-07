@@ -33,7 +33,7 @@
       <div>8</div>
       <div>9</div>
       <div>+</div>
-      <div @click="recode">再记</div>
+      <div @click="recode($event); deleteRemark($event)">再记</div>
       <div>0</div>
       <div>.</div>
       <div class="save" @click="recode">
@@ -59,9 +59,12 @@ export default {
     }
   },
   methods: {
+    deleteRemark() {
+      document.getElementsByClassName("remark")[0].value = ''
+    },
     jump(even) {
       let innerText = even.target.innerText
-      if (innerText === '保存'){
+      if (innerText === '保存') {
         window.location.href = "/"
       }
     },
@@ -79,11 +82,16 @@ export default {
 
       function lastCompute(moneyNum) {
         let lastStr = moneyNum.substr(moneyNum.length - 1, 1)
+        let firstStr = moneyNum.substr(0, 1)
+
+        if (firstStr === '-' || firstStr === '+' || firstStr === '.') {
+          moneyNum = moneyNum.substr(1, moneyNum.length)
+        }
 
         if (lastStr === '-' || lastStr === '+' || lastStr === '.') {
           moneyNum = moneyNum.substr(0, moneyNum.length - 1)
         }
-        return moneyNum
+        return eval(moneyNum)
       }
 
     },
@@ -97,8 +105,7 @@ export default {
     }
     ,
     inputTest(even) {
-      let remark = even.target.value;
-      this.remark = remark
+      this.remark = even.target.value
     }
     ,
     inputNum(even) {
@@ -107,8 +114,10 @@ export default {
       let valueDom = document.getElementsByClassName('value').item(0);
       if (valueDom !== null) {
         let initText = getNum(valueDom, innerText)
-        valueDom.innerHTML = initText
-        this.moneyNum = initText
+        if (initText !== undefined) {
+          valueDom.innerHTML = initText
+          this.moneyNum = initText
+        }
       }
     }
   },

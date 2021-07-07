@@ -36,19 +36,26 @@ export default {
       moneyData.incomes.forEach(income => {
         let incomeName = createSpan(createElement, 'incomeName', income.name);
         let incomeValue = createSpan(createElement, 'incomeValue',"+" + income.value)
+        let remark = createSpan(createElement,"remark",income.text)
         result.push(incomeName)
         result.push(incomeValue)
+        result.push(remark)
       })
       moneyData.expenses.forEach(expense => {
         let expenseName = createSpan(createElement, 'expenseName', expense.name)
         let expenseValue = createSpan(createElement, 'expenseValue',"-"+ expense.value)
+        let remark = createSpan(createElement,"remark",expense.text)
         result.push(expenseName)
         result.push(expenseValue)
+        result.push(remark)
       })
       return result
     }
 
     function createSpan(createElement, className, showData) {
+      if (showData === undefined){
+        return undefined
+      }
       return createElement('span', {
         attrs: {
           class: className
@@ -70,6 +77,17 @@ export default {
 </script>
 
 <style scoped>
+.remark{
+  font-size: 25px !important;
+  top: -36px;
+  color: #a9a9a9;
+  overflow: hidden;
+  width: 80vw !important;
+  height: 30px;
+  display: flex;
+  left: 146px;
+  margin-bottom: -20px !important;
+}
 .incomeValue {
   color: #61A48D;
 }
@@ -82,9 +100,10 @@ export default {
   font-family: SimHei;
   width: 50%;
   font-size: 35px;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
   margin-left: -70px;
   margin-right: -40px;
+  position: relative;
 }
 
 .moneyDataDetail {
