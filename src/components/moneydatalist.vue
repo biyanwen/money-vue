@@ -35,13 +35,13 @@ export default {
       let result = []
       moneyData.incomes.forEach(income => {
         let incomeName = createSpan(createElement, 'incomeName', income.name);
-        let incomeValue = createSpan(createElement, 'incomeValue', income.value)
+        let incomeValue = createSpan(createElement, 'incomeValue',"+" + income.value)
         result.push(incomeName)
         result.push(incomeValue)
       })
       moneyData.expenses.forEach(expense => {
         let expenseName = createSpan(createElement, 'expenseName', expense.name)
-        let expenseValue = createSpan(createElement, 'expenseValue', expense.value)
+        let expenseValue = createSpan(createElement, 'expenseValue',"-"+ expense.value)
         result.push(expenseName)
         result.push(expenseValue)
       })
