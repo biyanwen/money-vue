@@ -40,21 +40,21 @@ export default {
     Calendar,
     Icons
   },
-  props: ['hasData'],
   data: function () {
     return {
       monthlyExpenditure: 0,
       monthlyIncome: 0,
       monthlyBalance: 0,
-      selectDate: new Date()
+      selectDate: new Date(),
+      hasData: false
     }
   },
   watch: {
     selectDate: {
       handler: function (newValue, oldValue) {
-        this.$emit('update:date', this.selectDate)
         this.$store.commit('selectDate', newValue)
         this.statisticalData(newValue)
+        this.hasData = this.$store.getters.getMoneyDataForSameMonth(this.selectDate).length !== 0
       },
       immediate: true
     },

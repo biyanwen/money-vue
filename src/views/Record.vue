@@ -20,7 +20,7 @@
       <input @change="inputTest($event)" class="remark" placeholder="点此输入备注..."/>
       <div class="value">0.0</div>
     </div>
-    <div @click="keySelect($event);inputNum($event)" class="compute">
+    <div @click="keySelect($event);inputNum($event);jump($event)" class="compute">
       <div>1</div>
       <div>2</div>
       <div>3</div>
@@ -36,7 +36,9 @@
       <div @click="recode">再记</div>
       <div>0</div>
       <div>.</div>
-      <div class="save">保存</div>
+      <div class="save" @click="recode">
+        保存
+      </div>
     </div>
   </div>
 </template>
@@ -57,9 +59,14 @@ export default {
     }
   },
   methods: {
+    jump(even) {
+      let innerText = even.target.innerText
+      if (innerText === '保存'){
+        window.location.href = "/"
+      }
+    },
     recode() {
-      let computeResult = lastCompute(this.moneyNum)
-      this.moneyNum = computeResult
+      this.moneyNum = lastCompute(this.moneyNum)
 
       let typeName = this.$store.state.selectType.name
       let type = this.$store.state.selectType.type
@@ -95,12 +102,14 @@ export default {
     }
     ,
     inputNum(even) {
-      let valueDom = document.getElementsByClassName('value').item(0);
-      let innerText = even.target.innerText
-      let initText = getNum(valueDom, innerText)
 
-      valueDom.innerHTML = initText
-      this.moneyNum = initText
+      let innerText = even.target.innerText
+      let valueDom = document.getElementsByClassName('value').item(0);
+      if (valueDom !== null) {
+        let initText = getNum(valueDom, innerText)
+        valueDom.innerHTML = initText
+        this.moneyNum = initText
+      }
     }
   },
   created() {

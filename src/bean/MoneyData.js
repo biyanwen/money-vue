@@ -4,7 +4,7 @@ class MoneyData {
     constructor(id, date, moneyDataArray) {
         this.id = id
         //日期
-        this._date = date;
+        this._date = new Date(date);
         //根据 type 区分收入和支出
         this._moneyDataArray = this._moneyDataArray || [].concat(moneyDataArray)
     }
@@ -26,10 +26,9 @@ class MoneyData {
     }
 
     get incomes() {
-        let result = this.moneyDataArray.filter(item => {
-            return item.type === MoneyTypeEnum.INCOME
-        });
-        return result
+        return this.moneyDataArray.filter(item => {
+            return item.type.name === MoneyTypeEnum.INCOME.name
+        })
     }
 
     set incomes(value) {
@@ -38,7 +37,7 @@ class MoneyData {
 
     get expenses() {
         return this.moneyDataArray.filter(item => {
-            return item.type === MoneyTypeEnum.EXPENSE
+            return item.type.name === MoneyTypeEnum.EXPENSE.name
         });
     }
 

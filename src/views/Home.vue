@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <TopBar v-bind:hasData="haveData" v-on:update:date="date = $event"/>
-    <HomeMain :money-data-array="records" v-bind:hasData="haveData"/>
+    <TopBar/>
+    <HomeMain />
     <HomeFooter/>
   </div>
 </template>
@@ -20,13 +20,6 @@ export default {
   name: 'Home',
   data: function () {
     return {
-      date: undefined,
-      records: this.$store.getters.getMoneyDataArray
-    }
-  },
-  computed: {
-    haveData() {
-      return this.records.length !== 0;
     }
   }
 }

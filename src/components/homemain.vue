@@ -23,8 +23,22 @@ import MoneyDataList from "@/components/moneydatalist";
 
 export default {
   components: {MoneyDataList},
-  props: ['hasData', 'moneyDataArray'],
   name: "homemain",
+  data: function () {
+    return {
+      hasData: false,
+      moneyDataArray: []
+    }
+  },
+  watch: {
+    "$store.state.selectDate": {
+      handler: function (newVal, oldVal) {
+        this.moneyDataArray = this.$store.getters.getMoneyDataForSameMonth(newVal)
+        this.hasData = this.moneyDataArray.length !== 0
+      },
+      immediate: true
+    }
+  }
 }
 </script>
 

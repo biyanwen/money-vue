@@ -2,28 +2,32 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import MoneyType from '../bean/MoneyType'
 import MoneyData from "@/bean/MoneyData";
+import MoneyDetail from "@/bean/MoneyDetail";
 
 Vue.use(Vuex)
 
 const MONEY = 'money-vue'
+const MoneyDataArray = "MoneyDataArray"
 export default new Vuex.Store({
     state: {
         selectType: {name: undefined, type: undefined},
-        selectDate: undefined,
+        selectDate: new Date(),
         moneyDataArray: new Array<MoneyData>()
     },
     mutations: {
         saveMoneyData(state, moneyData: MoneyData) {
-            const filterResult = state.moneyDataArray || [].filter(item => {
+            const dataList = getMoneyDataArrayAtLocalStorage() || [];
+            const filterResult = dataList.filter((item: MoneyData) => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 return item.date.toDateString() === moneyData.date.toDateString()
             })
             if (filterResult.length === 0) {
-                state.moneyDataArray.push(moneyData)
+                dataList.push(moneyData)
             } else {
                 filterResult[0].addMoneyData(moneyData.moneyDataArray)
             }
+            saveMoneyDataArrayAtLocalStorage(dataList)
         },
         selectType(state, param) {
             state.selectType = {name: param.name, type: param.type}
@@ -39,8 +43,8 @@ export default new Vuex.Store({
     actions: {},
     modules: {},
     getters: {
-        getMoneyDataArray(state) {
-            return state.moneyDataArray
+        getMoneyDataArray() {
+            return getMoneyDataArrayAtLocalStorage()
         },
         getExpenseType() {
             const moneyTypeDefault = new MoneyType;
@@ -50,13 +54,33 @@ export default new Vuex.Store({
             const moneyTypeDefault = new MoneyType;
             return localStorage.getItem(MONEY + 'incomesType') || moneyTypeDefault.incomesDefault
         },
-        getMoneyDataForSameMonth: (state) => (date: Date) => {
-            // todo 要从 localStore 中获取
-            const dataList = state.moneyDataArray
-            return dataList.filter(item => {
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        getMoneyDataForSameMonth: (state) => (date) => {
+            if ('date' in date) {
+                date = date.date
+            }
+            const dataList = getMoneyDataArrayAtLocalStorage()
+            return dataList.filter((item: MoneyData) => {
                 return item.date.getFullYear() === date.getFullYear()
                     && item.date.getMonth() === date.getMonth()
             })
         }
     }
 })
+
+function saveMoneyDataArrayAtLocalStorage(dataList: Array<MoneyData>) {
+    localStorage.setItem(MoneyDataArray, JSON.stringify(dataList));
+}
+
+function getMoneyDataArrayAtLocalStorage() {
+    const moneyDataArray = JSON.parse(<string>localStorage.getItem(MoneyDataArray)) || []
+
+    return moneyDataArray.filter((item: MoneyData) => item !== null).map((item: MoneyData) => {
+        const moneyDetailArray = item._moneyDataArray.map((detail: MoneyDetail) => {
+            return new MoneyDetail(detail._name, detail._value, detail._type, detail._text)
+        })
+        return new MoneyData(item.id, item._date, moneyDetailArray)
+    })
+}
