@@ -5,6 +5,7 @@ export default {
   props: ['moneyDataArray'],
   render: function (createElement) {
     let moneyDataArrayCopy = this.moneyDataArray
+
     function createFirstChildElement(createElement) {
       let childList = []
       moneyDataArrayCopy.forEach(moneyData => {
@@ -34,26 +35,40 @@ export default {
     function createDetail(createElement, moneyData) {
       let result = []
       moneyData.incomes.forEach(income => {
+        let spanArray = []
         let incomeName = createSpan(createElement, 'incomeName', income.name);
-        let incomeValue = createSpan(createElement, 'incomeValue',"+" + income.value)
-        let remark = createSpan(createElement,"remark",income.text)
-        result.push(incomeName)
-        result.push(incomeValue)
-        result.push(remark)
+        let incomeValue = createSpan(createElement, 'incomeValue', "+" + income.value)
+        let remark = createSpan(createElement, "remark", income.text)
+        spanArray.push(incomeName)
+        spanArray.push(incomeValue)
+        spanArray.push(remark)
+        let spanDiv = createElement('div', {
+          attrs: {
+            class: 'spanDiv'
+          }
+        }, spanArray);
+        result.push(spanDiv)
       })
       moneyData.expenses.forEach(expense => {
+        let spanArray = []
         let expenseName = createSpan(createElement, 'expenseName', expense.name)
-        let expenseValue = createSpan(createElement, 'expenseValue',"-"+ expense.value)
-        let remark = createSpan(createElement,"remark",expense.text)
-        result.push(expenseName)
-        result.push(expenseValue)
-        result.push(remark)
+        let expenseValue = createSpan(createElement, 'expenseValue', "-" + expense.value)
+        let remark = createSpan(createElement, "remark", expense.text)
+        spanArray.push(expenseName)
+        spanArray.push(expenseValue)
+        spanArray.push(remark)
+        let spanDiv = createElement('div', {
+          attrs: {
+            class: 'spanDiv'
+          }
+        }, spanArray);
+        result.push(spanDiv)
       })
       return result
     }
 
     function createSpan(createElement, className, showData) {
-      if (showData === undefined){
+      if (showData === undefined) {
         return undefined
       }
       return createElement('span', {
@@ -77,17 +92,30 @@ export default {
 </script>
 
 <style scoped>
-.remark{
+.spanDiv{
+  /*border: 1px solid red;*/
+  width: 100%;
+  font-size: 35px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  margin-bottom: 10px;
+}
+.spanDiv > span{
+  /*border: 1px solid black;*/
+  width: 30%;
+  margin-bottom: 35px;
+}
+.remark {
   font-size: 25px !important;
-  top: -36px;
+  top: 43px;
   color: #a9a9a9;
   overflow: hidden;
-  width: 80vw !important;
   height: 30px;
-  display: flex;
-  left: 146px;
-  margin-bottom: -20px !important;
+  position: absolute;
 }
+
 .incomeValue {
   color: #61A48D;
 }
