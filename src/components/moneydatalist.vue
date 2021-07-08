@@ -45,6 +45,10 @@ export default {
         let spanDiv = createElement('div', {
           attrs: {
             class: 'spanDiv'
+          },
+          on: {
+            mousedown: addDownUpClass,
+            mouseup: removeDownUpClass
           }
         }, spanArray);
         result.push(spanDiv)
@@ -60,6 +64,10 @@ export default {
         let spanDiv = createElement('div', {
           attrs: {
             class: 'spanDiv'
+          },
+          on: {
+            mousedown: addDownUpClass,
+            mouseup: removeDownUpClass
           }
         }, spanArray);
         result.push(spanDiv)
@@ -89,11 +97,31 @@ export default {
   },
 
 }
+
+function addDownUpClass(e) {
+  console.log("---")
+  let element = e.target
+  if (e.target.localName === 'span') {
+    element = e.target.parentNode
+  }
+  element.classList.add("downUpColor")
+}
+
+function removeDownUpClass(e) {
+  let element = e.target
+  if (e.target.localName === 'span') {
+    element = e.target.parentElement
+  }
+  setTimeout(() => element.classList.remove("downUpColor"), 200)
+}
 </script>
 
 <style scoped>
-.spanDiv{
-  /*border: 1px solid red;*/
+.downUpColor {
+  background-color: #bab5b5
+}
+
+.spanDiv {
   width: 100%;
   font-size: 35px;
   display: flex;
@@ -102,11 +130,12 @@ export default {
   position: relative;
   margin-bottom: 10px;
 }
-.spanDiv > span{
-  /*border: 1px solid black;*/
+
+.spanDiv > span {
   width: 30%;
   margin-bottom: 35px;
 }
+
 .remark {
   font-size: 25px !important;
   top: 43px;
