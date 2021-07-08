@@ -48,7 +48,7 @@ export default {
           },
           on: {
             mousedown: addDownUpClass,
-            mouseup: removeDownUpClass
+            mouseup: removeDownUpClass,
           }
         }, spanArray);
         result.push(spanDiv)
@@ -118,7 +118,7 @@ function removeDownUpClass(e) {
 
 <style scoped>
 .downUpColor {
-  background-color: #bab5b5
+  background-color: rgba(213, 210, 210, 0.95)
 }
 
 .spanDiv {
