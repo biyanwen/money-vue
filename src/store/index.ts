@@ -35,7 +35,12 @@ export default new Vuex.Store({
                 }
             }
             localStorage.removeItem(MoneyDataArray)
-            localStorage.setItem(MoneyDataArray, JSON.stringify(dataArray))
+            const lastResult = dataArray.filter((item: MoneyData) => {
+                return item.moneyDataArray.length > 0
+            })
+            if (lastResult.length > 0){
+                localStorage.setItem(MoneyDataArray, JSON.stringify(dataArray))
+            }
         },
         saveMoneyData(state, moneyData: MoneyData) {
             const dataList = getMoneyDataArrayAtLocalStorage() || [];
@@ -84,11 +89,11 @@ export default new Vuex.Store({
                 date = date.date
             }
             const dataList = getMoneyDataArrayAtLocalStorage()
-            return  dataList.filter((item: MoneyData) => {
+            return dataList.filter((item: MoneyData) => {
                 return item.date.getFullYear() === date.getFullYear()
                     && item.date.getMonth() === date.getMonth()
             }).sort(function (t1: MoneyData, t2: MoneyData) {
-                return   t2.date.getTime() - t1.date.getTime()
+                return t2.date.getTime() - t1.date.getTime()
             })
         }
     }
