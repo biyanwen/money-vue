@@ -99,7 +99,6 @@ export default {
 }
 
 function addDownUpClass(e) {
-  console.log("---")
   let element = e.target
   if (e.target.localName === 'span') {
     element = e.target.parentNode
@@ -159,7 +158,7 @@ function removeDownUpClass(e) {
   font-size: 35px;
   margin-bottom: 35px;
   margin-left: -70px;
-  margin-right: -40px;
+  margin-right: -22px;
   position: relative;
 }
 

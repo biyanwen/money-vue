@@ -65,7 +65,7 @@ export default new Vuex.Store({
             return dataList.filter((item: MoneyData) => {
                 return item.date.getFullYear() === date.getFullYear()
                     && item.date.getMonth() === date.getMonth()
-            })
+            }).reverse()
         }
     }
 })
