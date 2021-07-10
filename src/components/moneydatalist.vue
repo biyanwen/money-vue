@@ -4,10 +4,30 @@ export default {
   name: "MoneyDataList",
   props: ['moneyDataArray'],
   render: function (createElement) {
+
     let moneyDataArrayCopy = this.moneyDataArray
+
+    return createElement('div', {
+      attrs: {
+        class: 'moneyDataListDiv'
+      }
+    }, createFirstChildElement(createElement));
 
     function createFirstChildElement(createElement) {
       let childList = []
+      let popLayer = createElement('div', {
+        attrs: {
+          class: 'popLayer'
+        },
+        on: {
+          click: deletePop
+        }
+      })
+      let popBox = createElement('div', {
+        attrs: {
+          class: 'popBox'
+        }
+      })
       moneyDataArrayCopy.forEach(moneyData => {
         let element = createElement('div', {
           attrs: {
@@ -16,6 +36,7 @@ export default {
         }, createSecond(createElement, moneyData))
         childList.push(element)
       })
+      childList.push(popLayer, popBox)
       return childList
     }
 
@@ -67,7 +88,8 @@ export default {
           },
           on: {
             mousedown: addDownUpClass,
-            mouseup: removeDownUpClass
+            mouseup: removeDownUpClass,
+            click: showEdit
           }
         }, spanArray);
         result.push(spanDiv)
@@ -88,34 +110,112 @@ export default {
         },
       })
     }
-
-    return createElement('div', {
-      attrs: {
-        class: 'moneyDataListDiv'
-      }
-    }, createFirstChildElement(createElement));
   },
 
 }
 
+function deletePop() {
+  document.getElementsByClassName('popLayer')[0]
+      .classList.remove('popLayerShow')
+  let popBoxShow = document.getElementsByClassName('popBox')[0]
+  popBoxShow.classList.remove('popBoxShow')
+  popBoxShow.innerHTML = ""
+}
+
+function showSelectEdit() {
+  document.getElementsByClassName('popLayer')[0]
+      .classList.add('popLayerShow')
+  let popBoxShow = document.getElementsByClassName('popBox')[0]
+  popBoxShow.classList.add('popBoxShow')
+  return popBoxShow
+}
+
+function createEditTitle() {
+  let result = []
+
+  let explain = createEditSpan('账单详情')
+  explain.style.fontWeight = "bolder"
+  let deleteButton = createEditSpan('删除')
+  deleteButton.style.fontWeight = "bolder"
+  deleteButton.style.color = "#c45053"
+  result.push(explain, deleteButton)
+  return result
+}
+
+function createEditSpan(value) {
+  let explain = document.createElement('span')
+  explain.innerHTML = value
+  explain.style.height = "30%"
+  explain.style.width = "50%"
+  explain.style.lineHeight = "259%"
+  return explain
+}
+
+function showEdit(e) {
+
+  let popBoxShow = showSelectEdit()
+
+  let [explain, deleteButton] = createEditTitle()
+
+  let childrenNodes = getDetailSpanParent(e).childNodes
+
+  //分类span
+  let typeSpan = createEditSpan("分类")
+  let typeValue = childrenNodes[0].innerHTML
+  let typeValueSpan = createEditSpan(typeValue)
+
+  //金额span
+  let moneySpan = createEditSpan("金额")
+  let moneyValue = childrenNodes[1].innerHTML
+  let moneyValueSpan = createEditSpan(moneyValue)
+
+  popBoxShow.append(explain, deleteButton, typeSpan, typeValueSpan, moneySpan, moneyValueSpan)
+
+}
+
 function addDownUpClass(e) {
-  let element = e.target
-  if (e.target.localName === 'span') {
-    element = e.target.parentNode
-  }
+  let element = getDetailSpanParent(e)
   element.classList.add("downUpColor")
 }
 
 function removeDownUpClass(e) {
+  let element = getDetailSpanParent(e)
+  setTimeout(() => element.classList.remove("downUpColor"), 200)
+}
+
+function getDetailSpanParent(e) {
   let element = e.target
   if (e.target.localName === 'span') {
     element = e.target.parentElement
   }
-  setTimeout(() => element.classList.remove("downUpColor"), 200)
+  return element;
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.popBoxShow {
+  position: fixed;
+  top: 30%;
+  width: 90%;
+  height: 20%;
+  background-color: white;
+  border-radius: 5%;
+  font-size: 35px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.popLayerShow {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-color: #B3B3B3;
+  opacity: 0.3;
+}
+
 .downUpColor {
   background-color: rgba(213, 210, 210, 0.95)
 }

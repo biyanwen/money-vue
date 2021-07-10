@@ -42,15 +42,6 @@ export default {
     }
   },
   methods: {
-    addDate() {
-      this.dates.push({
-        date: new Date(),
-      });
-      this.$nextTick(() => {
-        const btn = this.$refs.button[this.$refs.button.length - 1];
-        btn.click();
-      });
-    },
     removeDate(date, hide) {
       this.dates = this.dates.filter((d) => d !== date);
       hide();
