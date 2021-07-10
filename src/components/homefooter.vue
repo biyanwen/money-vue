@@ -29,7 +29,10 @@ export default {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  position: relative;
+  top: 90%;
+  left:41%;
+  right:50%;
+  position: fixed;
 }
 
 .addIcon {
