@@ -3,7 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 new Vue({
     router,

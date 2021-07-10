@@ -23,8 +23,11 @@
           <Calendar v-on:selected:date="selectDate = $event"/>
         </div>
         <div class="triangle">
-          <Icons class="icon" iconName="triangle"></Icons>
+          <Icons class="triangleIcon" iconName="triangle"></Icons>
         </div>
+      </div>
+      <div class="loopDiv" @click="toChart">
+        <Icons class="loop" icon-name="loop"></Icons>
       </div>
     </div>
   </header>
@@ -52,9 +55,13 @@ export default {
   watch: {
     selectDate: {
       handler: function (newValue, oldValue) {
-        this.$store.commit('selectDate', newValue)
-        this.statisticalData(newValue)
-        this.hasData = this.$store.getters.getMoneyDataForSameMonth(this.selectDate).length !== 0
+        let newDate = newValue
+        if (newValue === null || newValue === undefined){
+          newDate = oldValue
+        }
+        this.$store.commit('selectDate', newDate)
+        this.statisticalData(newDate)
+        this.hasData = this.$store.getters.getMoneyDataForSameMonth(newDate).length !== 0
       },
       immediate: true
     },
@@ -68,6 +75,9 @@ export default {
         this.monthlyExpenditure = sameDataArray.map(item => item.expenseValue).reduce((t1, t2) => Number(t1) + Number(t2))
         this.monthlyBalance = this.monthlyIncome - this.monthlyExpenditure
       }
+    },
+    toChart() {
+      this.$router.push('chart')
     }
   }
 
@@ -75,6 +85,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loopDiv {
+  top: 0;
+  width: 7%;
+  height: 180px;
+  right: 0;
+  position: absolute;
+  display: flex;
+  align-content: center;
+  margin-right: 30px;
+}
+
+.loop {
+  width: 100%;
+}
+
 .scape {
   position: relative;
 }
@@ -130,7 +155,7 @@ export default {
   top: -4px;
 }
 
-.icon {
+.triangleIcon {
   width: 35px;
   height: 35px;
 }

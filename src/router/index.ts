@@ -3,6 +3,7 @@ import VueRouter, {RouteConfig} from 'vue-router'
 import Home from '../views/Home.vue'
 import Expense from '../views/Expense.vue'
 import Incomes from '../views/Incomes.vue'
+import Chart from '../views/Chart.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,10 @@ const routes: Array<RouteConfig> = [
                 props: true
             },
         ]
+    },{
+        path: '/chart',
+        name: 'Chart',
+        component: Chart
     }
 ]
 
