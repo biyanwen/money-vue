@@ -70,6 +70,7 @@ export default {
           on: {
             mousedown: addDownUpClass,
             mouseup: removeDownUpClass,
+            click: showEdit
           }
         }, spanArray);
         result.push(spanDiv)
@@ -226,22 +227,21 @@ function getDetailSpanParent(e) {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  position: relative;
   margin-bottom: 10px;
 }
 
 .spanDiv > span {
-  width: 30%;
+  width: 35%;
   margin-bottom: 35px;
 }
 
 .remark {
   font-size: 25px !important;
-  top: 43px;
   color: #a9a9a9;
   overflow: hidden;
   height: 30px;
-  position: absolute;
+  margin-top: -39px;
+  margin-bottom: 10px !important;
 }
 
 .incomeValue {
@@ -259,7 +259,6 @@ function getDetailSpanParent(e) {
   margin-bottom: 35px;
   margin-left: -70px;
   margin-right: -22px;
-  position: relative;
 }
 
 .moneyDataDetail {
