@@ -2,11 +2,11 @@ import {MoneyTypeEnum} from "@/bean/MoneyTypeEnum";
 
 class MoneyData {
     constructor(id, date, moneyDataArray) {
-        this.id = id
         //日期
         this._date = new Date(date);
         //根据 type 区分收入和支出
         this._moneyDataArray = this._moneyDataArray || [].concat(moneyDataArray)
+        this._id = id;
     }
 
     get moneyDataArray() {
@@ -57,6 +57,14 @@ class MoneyData {
             return moneyAdd(this.expenses)
         }
         return 0
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
     }
 
     get des() {

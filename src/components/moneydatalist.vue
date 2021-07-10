@@ -1,11 +1,14 @@
 <script>
+import store from '@/store/index';
 
 export default {
   name: "MoneyDataList",
   props: ['moneyDataArray'],
   render: function (createElement) {
 
-    let moneyDataArrayCopy = this.moneyDataArray
+    let moneyDataArrayCopy = this.moneyDataArray.filter(item=>{
+     return  item.moneyDataArray.length > 0
+    })
 
     return createElement('div', {
       attrs: {
@@ -144,8 +147,23 @@ function createEditTitle() {
   return result
 }
 
-function deleteDetail() {
-  console.log("000")
+function deleteDetail(e) {
+  let childList = e.target.parentNode.childNodes
+  let typeName = childList[3].textContent
+  let moneyValue = childList[5].textContent.substr(1,childList[5].textContent.length -1)
+  let date = new Date(childList[7].textContent)
+  let remark = undefined
+  if (childList[9] !== undefined) {
+    remark = childList[9].textContent
+  }
+  store.commit("deleteMoneyDetail", {
+    date: date,
+    type: typeName,
+    value: moneyValue,
+    remark: remark
+  })
+  deletePop()
+  location.reload();
 }
 
 function createEditSpan(value) {
@@ -183,7 +201,24 @@ function showEdit(e) {
   popBoxShow.append(explain, deleteButton, typeSpan
       , typeValueSpan, moneySpan, moneyValueSpan
       , dateSpan, dateValueSpan)
+  //备注span
+  let remarkSpan = undefined
+  let remarkValueSpan = undefined
+  let remark = getRemark(e)
+  if (remark !== undefined) {
+    remarkSpan = createEditSpan("备注")
+    remarkValueSpan = createEditSpan(remark)
+    popBoxShow.append(remarkSpan, remarkValueSpan)
+  }
+}
 
+function getRemark(e) {
+  let remark = undefined
+  let element = getDetailSpanParent(e)
+  if (element.childNodes.length >= 3) {
+    remark = element.childNodes[2].innerHTML;
+  }
+  return remark
 }
 
 function getDateValue(e) {

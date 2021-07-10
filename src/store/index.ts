@@ -15,6 +15,28 @@ export default new Vuex.Store({
         moneyDataArray: new Array<MoneyData>()
     },
     mutations: {
+        deleteMoneyDetail(state, param) {
+            const date = param.date
+            const type = param.type
+            const value = Number(param.value)
+            const remark = param.remark
+            const dataArray = getMoneyDataArrayAtLocalStorage()
+
+            const sameDayData = dataArray.filter((item: MoneyData) => {
+                return item.date.getFullYear() === date.getFullYear()
+                    && item.date.getMonth() === date.getMonth()
+                    && item.date.getDay() === date.getDay()
+            })
+            const moneyDataArray = sameDayData[0].moneyDataArray
+            for (let i = 0; i < moneyDataArray.length; i++) {
+                const data = moneyDataArray[i]
+                if (data.name === type && data.value === value && data.text === remark) {
+                    moneyDataArray.splice(i, 1)
+                }
+            }
+            localStorage.removeItem(MoneyDataArray)
+            localStorage.setItem(MoneyDataArray, JSON.stringify(dataArray))
+        },
         saveMoneyData(state, moneyData: MoneyData) {
             const dataList = getMoneyDataArrayAtLocalStorage() || [];
             const filterResult = dataList.filter((item: MoneyData) => {
@@ -62,10 +84,12 @@ export default new Vuex.Store({
                 date = date.date
             }
             const dataList = getMoneyDataArrayAtLocalStorage()
-            return dataList.filter((item: MoneyData) => {
+            return  dataList.filter((item: MoneyData) => {
                 return item.date.getFullYear() === date.getFullYear()
                     && item.date.getMonth() === date.getMonth()
-            }).reverse()
+            }).sort(function (t1: MoneyData, t2: MoneyData) {
+                return   t2.date.getTime() - t1.date.getTime()
+            })
         }
     }
 })
