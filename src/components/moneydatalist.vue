@@ -139,8 +139,13 @@ function createEditTitle() {
   let deleteButton = createEditSpan('删除')
   deleteButton.style.fontWeight = "bolder"
   deleteButton.style.color = "#c45053"
+  deleteButton.onclick = deleteDetail
   result.push(explain, deleteButton)
   return result
+}
+
+function deleteDetail() {
+  console.log("000")
 }
 
 function createEditSpan(value) {
@@ -170,8 +175,20 @@ function showEdit(e) {
   let moneyValue = childrenNodes[1].innerHTML
   let moneyValueSpan = createEditSpan(moneyValue)
 
-  popBoxShow.append(explain, deleteButton, typeSpan, typeValueSpan, moneySpan, moneyValueSpan)
+  //事件span
+  let dateValue = getDateValue(e)
+  let dateSpan = createEditSpan("时间")
+  let dateValueSpan = createEditSpan(dateValue)
 
+  popBoxShow.append(explain, deleteButton, typeSpan
+      , typeValueSpan, moneySpan, moneyValueSpan
+      , dateSpan, dateValueSpan)
+
+}
+
+function getDateValue(e) {
+  let element = getDetailSpanParent(e)
+  return element.parentNode.children[0].innerHTML
 }
 
 function addDownUpClass(e) {
@@ -198,7 +215,6 @@ function getDetailSpanParent(e) {
   position: fixed;
   top: 30%;
   width: 90%;
-  height: 20%;
   background-color: white;
   border-radius: 5%;
   font-size: 35px;
