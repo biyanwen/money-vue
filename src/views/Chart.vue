@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="overview">
+      <div class="on"></div>
+      <div class="backDiv" @click="toHome">
+        <Icons class="back" icon-name="back"></Icons>
+      </div>
       <span class="eiOverview">本月收支总览</span>
       <div class="expenseOverview">
         <span>支出</span>
@@ -16,7 +20,7 @@
       </div>
     </div>
     <div class="charts">
-      <div  style="width: auto;height: 400px" id="expense">
+      <div style="width: auto;height: 400px" id="expense">
       </div>
       <div style="width: auto;height: 400px" id="income">
       </div>
@@ -26,11 +30,12 @@
 </template>
 
 <script>
-import MoneyType from "@/bean/MoneyType";
 import {MoneyTypeEnum} from "@/bean/MoneyTypeEnum";
+import Icons from "@/components/Icons";
 
 export default {
   name: "Chart",
+  components: {Icons},
   data: function () {
     return {
       monthlyIncome: 0,
@@ -58,6 +63,9 @@ export default {
     this.echartsInit()
   },
   methods: {
+    toHome() {
+      this.$router.push('/')
+    },
     getExpense() {
       return this.getTypeData(MoneyTypeEnum.EXPENSE.name)
     },
@@ -114,7 +122,7 @@ export default {
             data: dataArray,
             label: {
               normal: {
-                formatter: '{b}:{c}: ({d}%)',
+                formatter: '{b}:{c}',
                 show: true,
                 textStyle: {
                   fontSize: 28
@@ -127,21 +135,6 @@ export default {
           }
         ],
         roseType: 'angle',
-        itemStyle: {
-          // 阴影的大小
-          shadowBlur: 200,
-          // 阴影水平方向上的偏移
-          shadowOffsetX: 0,
-          // 阴影垂直方向上的偏移
-          shadowOffsetY: 0,
-          // 阴影颜色
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        },
-        labelLine: {
-          lineStyle: {
-            color: 'rgba(255, 255, 255, 0.3)'
-          }
-        },
       }
     },
     createExpenseOption() {
@@ -167,6 +160,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.on {
+  background-color: white;
+  height: 20px;
+}
+
+.backDiv {
+  top: -10px;
+  width: 6%;
+  margin-left: 20px;
+  position: absolute;
+}
+
+.back {
+  width: 100%;
+}
+
 .eiOverview {
   font-size: 45px;
 }
@@ -202,15 +211,26 @@ export default {
 }
 
 .overview {
+  position: relative;
   background-color: white;
   margin-bottom: 20px;
-
-  > * {
-    margin-bottom: 20px;
-    margin-top: 10px;
-
-  }
 }
+
+.balanceOverview {
+  margin-bottom: 20px;
+  margin-top: 34px;
+}
+
+.incomeOverview {
+  margin-bottom: 20px;
+  margin-top: 34px;
+}
+
+.expenseOverview {
+  margin-bottom: 20px;
+  margin-top: 34px;
+}
+
 
 #expense {
   background-color: white;

@@ -26,7 +26,7 @@
           <Icons class="triangleIcon" iconName="triangle"></Icons>
         </div>
       </div>
-      <div class="loopDiv" @click="toChart">
+      <div class="loopDiv" @click="toChart" v-show="hasData">
         <Icons class="loop" icon-name="loop"></Icons>
       </div>
     </div>
