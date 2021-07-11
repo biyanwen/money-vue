@@ -65,7 +65,7 @@ export default {
     jump(even) {
       let innerText = even.target.innerText
       if (innerText === '保存') {
-        window.location.href = "/"
+        this.$router.push('/')
       }
     },
     recode() {
