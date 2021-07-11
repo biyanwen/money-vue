@@ -35,10 +35,15 @@ const routes: Array<RouteConfig> = [
                 props: true
             },
         ]
-    },{
+    }, {
         path: '/chart',
         name: 'Chart',
         component: Chart
+    }, {
+        path: '*',
+        redirect: {
+            name: "Home"
+        }
     }
 ]
 
