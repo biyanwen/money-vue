@@ -44,6 +44,7 @@ body {
   #app{
     max-width: 700px;
     margin: 0 auto;
+    height: 100vh;
   }
 }
 

@@ -55,15 +55,6 @@ export default {
   z-index: -1;
 }
 
-@media screen and (min-width: 900px){
-  .noFaceMan {
-    min-width: 60%;
-    position: absolute;
-    margin-top: -38px;
-    left: 150px;
-    z-index: -1;
-  }
-}
 .description {
   width: 100%;
   font-size: 40px;
@@ -82,5 +73,35 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+@media screen and (min-width: 900px){
+  .noFaceMan {
+    min-width: 40%;
+    position: absolute;
+    margin-top: -38px;
+    left: 185px;
+    z-index: -1;
+  }
+
+  .description {
+    width: 100%;
+    font-size: 30px;
+    z-index: -1;
+  }
+
+  .description2 {
+    font-size: 20px;
+    z-index: -1;
+  }
+  .description-wrapper {
+    width: 100%;
+    min-height: 10vh;
+    position: absolute;
+    top: 25vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 </style>
