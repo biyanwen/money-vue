@@ -102,6 +102,7 @@ export default {
 
 .scape {
   position: relative;
+  overflow-x: hidden;
 }
 
 .me {

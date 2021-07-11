@@ -48,13 +48,22 @@ export default {
 }
 
 .noFaceMan {
-  min-width: 60vw;
+  min-width: 60%;
   position: absolute;
   margin-top: 200px;
   left: 150px;
   z-index: -1;
 }
 
+@media screen and (min-width: 900px){
+  .noFaceMan {
+    min-width: 60%;
+    position: absolute;
+    margin-top: -38px;
+    left: 150px;
+    z-index: -1;
+  }
+}
 .description {
   width: 100%;
   font-size: 40px;

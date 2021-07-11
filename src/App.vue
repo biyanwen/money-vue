@@ -40,6 +40,12 @@ body {
   text-align: center;
   color: #2c3e50;
 }
+@media screen and (min-width: 900px){
+  #app{
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
 
 #nav {
   padding: 30px;

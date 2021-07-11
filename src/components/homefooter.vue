@@ -35,6 +35,18 @@ export default {
   position: fixed;
 }
 
+@media screen and (min-width: 900px){
+  .addButton {
+    background-color: #519af8;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    top: 83%;
+    left:46%;
+    right:50%;
+    position: fixed;
+  }
+}
 .addIcon {
   font-size: 50px;
   color: #ffffff;

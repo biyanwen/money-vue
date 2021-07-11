@@ -240,7 +240,7 @@ let isCanShow = function (text) {
 .input {
   margin-left: 5px;
   display: flex;
-  width: 98vw;
+  width: 100%;
   flex-wrap: nowrap;
   box-shadow: 0px -6px #ebebeb;
 }
@@ -273,7 +273,7 @@ let isCanShow = function (text) {
 
 .compute {
   height: 40vh;
-  width: 98vw;
+  width: 100%;
   position: absolute;
   display: flex;
   flex-wrap: wrap;
