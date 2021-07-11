@@ -41,7 +41,9 @@ export default {
       monthlyIncome: 0,
       monthlyExpenditure: 0,
       monthlyBalance: 0,
-      moneyDataArray: []
+      moneyDataArray: [],
+      expenseMap: new Map(),
+      incomeMap: new Map(),
     }
   },
   watch: {
@@ -56,6 +58,24 @@ export default {
         }
       },
       immediate: true
+    },
+    expenseMap: function () {
+      let hasData = Object.keys(this.expenseMap).length > 0
+      let expense = document.getElementById('expense')
+      if (hasData) {
+        expense.classList.remove('none')
+      } else {
+        expense.classList.add('none')
+      }
+    },
+    incomeMap: function () {
+      let hasData = Object.keys(this.incomeMap).length > 0
+      let income = document.getElementById('income')
+      if (hasData) {
+        income.classList.remove('none')
+      } else {
+        income.classList.add('none')
+      }
     }
   },
   mounted() {
@@ -67,10 +87,12 @@ export default {
       this.$router.push('/')
     },
     getExpense() {
-      return this.getTypeData(MoneyTypeEnum.EXPENSE.name)
+      this.expenseMap = this.getTypeData(MoneyTypeEnum.EXPENSE.name)
+      return this.expenseMap
     },
     getIncome() {
-      return this.getTypeData(MoneyTypeEnum.INCOME.name)
+      this.incomeMap = this.getTypeData(MoneyTypeEnum.INCOME.name)
+      return this.incomeMap
     },
     getTypeData(typeName) {
       let expenseList = []
@@ -160,6 +182,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.none {
+  display: none
+}
+
 .on {
   background-color: white;
   height: 20px;
