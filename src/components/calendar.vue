@@ -9,7 +9,7 @@
               class="color font flex items-center bg-indigo-100 hover:bg-indigo-200 text-sm text-indigo-600 font-semibold h-8 px-2 m-1 rounded-lg border-2 border-transparent focus:border-indigo-600 focus:outline-none"
               @click.stop="dateSelected($event, date, togglePopover)"
               ref="button">
-            {{ date.date.getFullYear() }}.{{ date.date.getMonth() + 1 }}
+            {{ showDate.getFullYear() }}.{{ showDate.getMonth() + 1 }}
           </button>
         </div>
       </template>
@@ -30,14 +30,20 @@ export default {
       name: "calendar",
       dates: [
         {
-          date: new Date(),
+          date: new Date('2020-11-01'),
         },
       ],
-      selected: undefined
+      selected: undefined,
+      showDate: new Date()
     };
   },
   watch: {
     selected: function () {
+      let newDate = new Date(this.selected)
+      if ('date' in this.selected) {
+        newDate = new Date(this.selected.date)
+      }
+      this.showDate = newDate
       this.$emit("selected:date", this.selected)
     }
   },
@@ -47,7 +53,7 @@ export default {
       hide();
     },
     dateSelected(e, date, toggle) {
-      this.selected = date;
+      // this.selected = date;
       toggle({ref: e.target});
     },
   },

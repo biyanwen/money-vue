@@ -33,7 +33,9 @@ export default {
   watch: {
     "$store.state.selectDate": {
       handler: function (newVal, oldVal) {
-        this.moneyDataArray = this.$store.getters.getMoneyDataForSameMonth(newVal)
+        this.moneyDataArray = this.$store.getters.getMoneyDataForSameMonth(newVal).filter(item => {
+          return item.moneyDataArray.length > 0
+        })
         this.hasData = this.moneyDataArray.length !== 0
       },
       immediate: true
@@ -75,7 +77,7 @@ export default {
   justify-content: center;
 }
 
-@media screen and (min-width: 900px){
+@media screen and (min-width: 900px) {
   .noFaceMan {
     min-width: 40%;
     position: absolute;

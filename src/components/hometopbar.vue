@@ -56,12 +56,15 @@ export default {
     selectDate: {
       handler: function (newValue, oldValue) {
         let newDate = newValue
-        if (newValue === null || newValue === undefined){
+        if (newValue === null || newValue === undefined) {
           newDate = oldValue
         }
         this.$store.commit('selectDate', newDate)
         this.statisticalData(newDate)
-        this.hasData = this.$store.getters.getMoneyDataForSameMonth(newDate).length !== 0
+        this.hasData = this.$store.getters.getMoneyDataForSameMonth(newDate)
+            .filter(item => {
+              return item.moneyDataArray.length > 0
+            }).length !== 0
       },
       immediate: true
     },
